@@ -1,0 +1,28 @@
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import StandardScaler
+
+ratings = {
+    'User': ['A', 'A', 'A', 'B', 'B', 'C', 'C', 'D', 'E', 'E'],
+    'Movie': ['Titanic', 'Avengers', 'Avatar', 'Titanic', 'Avengers', 'Avatar', 'Avengers', 'Titanic', 'Avatar', 'Avengers'],
+    'Rating': [5, 4, 5, 4, 5, 5, 4, 3, 5, 5]
+}
+
+df = pd.DataFrame(ratings)
+
+pivot_table = df.pivot_table(index='User', columns='Movie', values='Rating').fillna(0)
+
+similarity = cosine_similarity(pivot_table)
+
+similarity_df = pd.DataFrame(similarity, index=pivot_table.index, columns=pivot_table.index)
+
+def recommend(user_name):
+    sim_users = similarity_df[user_name].sort_values(ascending=False)[1:]
+    top_user = sim_users.index[0]
+    user_ratings = pivot_table.loc[user_name]
+    top_user_ratings = pivot_table.loc[top_user]
+    unseen_movies = user_ratings[user_ratings == 0]
+    recommended = top_user_ratings[unseen_movies.index].sort_values(ascending=False)
+    return recommended[recommended > 0]
+
+print(recommend("D"))
