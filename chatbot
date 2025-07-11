@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def chatbot():
     print("Chatbot: Hello! I'm your assistant. How can I help you today?")
     
@@ -5,20 +7,19 @@ def chatbot():
         user_input = input("You: ").lower()
         
         if user_input in ["exit", "quit", "bye"]:
-            print("Chatbot: Goodbye! Have a great day 😊")
+            print("Chatbot: Goodbye! Have a great day.")
             break
         elif "hello" in user_input or "hi" in user_input:
             print("Chatbot: Hello! How can I assist you?")
         elif "your name" in user_input:
             print("Chatbot: I'm a simple rule-based chatbot!")
         elif "how are you" in user_input:
-            print("Chatbot: I'm just code, but I'm functioning as expected 😄")
+            print("Chatbot: I'm just code, but I'm functioning as expected.")
         elif "what can you do" in user_input:
             print("Chatbot: I can answer basic questions and chat with you!")
         elif "help" in user_input:
-            print("Chatbot: Sure! You can ask me things like 'What’s your name?' or say 'bye' to exit.")
+            print("Chatbot: Sure! You can ask me things like 'What's your name?' or say 'bye' to exit.")
         elif "time" in user_input:
-            from datetime import datetime
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
             print(f"Chatbot: The current time is {current_time}")
